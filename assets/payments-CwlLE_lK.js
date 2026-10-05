@@ -1,0 +1,1 @@
+function i(o,n){try{if(n.startsWith("/"))return o(n);const t=new URL(n);if(typeof window<"u"&&t.origin===window.location.origin)return o(t.pathname+t.search);window.location.href=n}catch{o(n)}}export{i as g};
