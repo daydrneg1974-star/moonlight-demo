@@ -56,3 +56,5 @@
 | veggie-wrap | — | [фото](https://www.pexels.com/photo/1372647/) | Pexels License |
 | porridge | — | [фото](https://www.pexels.com/photo/1321885/) | Pexels License |
 | carrot-cake | — | alestrunda/bakery/src/data/recipes/almond-n-raisins-cake.jpg | Unsplash (по README репозитория alestrunda/bakery) |
+| _neon | [Лунный свет]() | фото кофейни (предоставлено заказчиком), ретушь | собственность кофейни |
+| _sign | [Лунный свет]() | фото кофейни (предоставлено заказчиком), ретушь | собственность кофейни |
