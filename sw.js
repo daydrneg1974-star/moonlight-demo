@@ -5,8 +5,19 @@ const BASE = new URL(self.registration.scope).pathname; // например "/" 
 const SHELL = [BASE, `${BASE}index.html`, `${BASE}manifest.webmanifest`, `${BASE}icon.svg`];
 const STATIC = /\/(assets|photos|fonts)\//;
 
+// При установке кладём в кэш оболочку, её скрипты/стили (имена берём из index.html) и шрифты:
+// второй запуск не зависит от HTTP-кэша хостинга (GitHub Pages отдаёт max-age всего 10 минут).
+async function precache() {
+  const c = await caches.open(CACHE);
+  await c.addAll(SHELL).catch(() => {});
+  try {
+    const html = await (await fetch(`${BASE}index.html`, { cache: 'no-cache' })).text();
+    const urls = [...html.matchAll(/(?:src|href)="\.?\/?((?:assets|fonts)\/[^"]+)"/g)].map((m) => BASE + m[1]);
+    await Promise.all(urls.map((u) => c.add(u).catch(() => {})));
+  } catch {}
+}
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL).catch(() => {})).then(() => self.skipWaiting()));
+  e.waitUntil(precache().then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (e) => {
